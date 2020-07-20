@@ -8,7 +8,17 @@ import (
 	"testing"
 )
 
-func TestImageImage(t *testing.T) {
+func TestImageImage_ColorLinkedIn(t *testing.T) {
+
+	// THIS IS WHAT ACTUALLY MATTERS!
+	var datum image.Image = pel.ColorLinked{}
+
+	if nil == datum {
+		t.Error("This should never happen")
+	}
+}
+
+func TestImageImage_RGBA(t *testing.T) {
 
 	// THIS IS WHAT ACTUALLY MATTERS!
 	var datum image.Image = pel.RGBA{}
