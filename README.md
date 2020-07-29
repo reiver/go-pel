@@ -57,5 +57,5 @@ pixel := pel.ColorLinked{
 
 In both cases `pixel` fits he image.Image interface, and you can use it to draw. For example:
 ```Go
-draw.Draw(dst, pixel.Bounds(), pixel. pixel.Bound().Min, draw.Over)
+draw.Draw(dst, pixel.Bounds(), pixel. pixel.Bounds().Min, draw.Over)
 ```
