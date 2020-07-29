@@ -81,10 +81,51 @@ func (receiver RGBA) ColorModel() color.Model {
 //
 // Bounds helps RGBA fit the Go built-in color.Color interface.
 func (receiver RGBA) RGBA() (r, g, b, a uint32) {
-	r = uint32(receiver.R) * (0xffff/0xff)
-	g = uint32(receiver.G) * (0xffff/0xff)
-	b = uint32(receiver.B) * (0xffff/0xff)
-	a = uint32(receiver.A) * (0xffff/0xff)
+	r = uint32(receiver.R)
+	g = uint32(receiver.G)
+	b = uint32(receiver.B)
+	a = uint32(receiver.A)
+
+	if 0 == a {
+		return 0,0,0,0
+	}
+	if 255 == a {
+		r *= (0xffff/0xff)
+		g *= (0xffff/0xff)
+		b *= (0xffff/0xff)
+		a *= (0xffff/0xff)
+
+		return r,g,b,a
+	}
+
+	ra := r*a
+	ga := g*a
+	ba := b*a
+
+	ramod := ra % 0xff
+	gamod := ga % 0xff
+	bamod := ba % 0xff
+
+	r = ra / 0xff
+	g = ga / 0xff
+	b = ba / 0xff
+	a = 0xff
+
+	if 127 < ramod {
+		r++
+	}
+	if 127 < gamod {
+		g++
+	}
+	if 127 < bamod {
+		b++
+	}
+
+	r *= (0xffff/0xff)
+	g *= (0xffff/0xff)
+	b *= (0xffff/0xff)
+	a *= (0xffff/0xff)
+
 
 	return r,g,b,a
 }
